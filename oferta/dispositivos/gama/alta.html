@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minimalist Image Slider</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+    .slider-container {
+      display: flex;
+      height: 100%;
+      width: 100vw;
+      overflow: hidden;
+      transition: background-color 0.5s ease-in-out;
+    }
+    .slider {
+      display: flex;
+      height: 100%;
+      width: 100%;
+      transition: transform 0.3s ease-in-out;
+    }
+    .slider img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      user-select: none;
+      pointer-events: none;
+    }
+    .slider-container {
+      touch-action: none;
+    }
+    .gradient {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      transition: background-color 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+
+<div class="gradient"></div>
+<div class="slider-container" id="slider-container">
+  <div class="slider" id="slider">
+    <!-- Dynamically added images will appear here -->
+  </div>
+</div>
+
+<script>
+  const sliderContainer = document.getElementById('slider-container');
+  const slider = document.getElementById('slider');
+  const gradient = document.querySelector('.gradient');
+
+  let startTouchX = 0;
+  let currentSlide = 0;
+  let images = [];
+  let totalImages = 0;
+
+  // Fetch the list of images from the server-side script (get-images.php)
+  fetch('get-images.php')
+    .then(response => response.json())
+    .then(data => {
+      images = data;
+      totalImages = images.length;
+
+      // Dynamically create <img> elements for each image
+      images.forEach(image => {
+        const imgElement = document.createElement('img');
+        imgElement.src = `images/${image}`;
+        imgElement.alt = image;
+        slider.appendChild(imgElement);
+      });
+
+      // Set initial background color based on the first image
+      updateBackgroundColor(slider.children[0]);
+    });
+
+  // Handle swipe gestures for changing images
+  sliderContainer.addEventListener('touchstart', (e) => {
+    startTouchX = e.touches[0].clientX;
+  });
+
+  sliderContainer.addEventListener('touchmove', (e) => {
+    const moveTouchX = e.touches[0].clientX;
+    const distance = startTouchX - moveTouchX;
+
+    if (distance > 50 && currentSlide < totalImages - 1) {
+      currentSlide++;
+      updateSliderPosition();
+      updateBackgroundColor(slider.children[currentSlide]);
+    }
+
+    if (distance < -50 && currentSlide > 0) {
+      currentSlide--;
+      updateSliderPosition();
+      updateBackgroundColor(slider.children[currentSlide]);
+    }
+  });
+
+  function updateSliderPosition() {
+    const slideWidth = window.innerWidth;
+    slider.style.transform = `translateX(-${slideWidth * currentSlide}px)`;
+  }
+
+  function updateBackgroundColor(img) {
+    const color = getDominantColor(img);
+    gradient.style.backgroundColor = color;
+  }
+
+  // Dummy function to get dominant color from image (you can use a library like Color Thief or Vibrant.js)
+  function getDominantColor(img) {
+    return 'rgba(0, 0, 0, 0.7)'; // Placeholder for now
+  }
+
+</script>
+
+</body>
+</html>
