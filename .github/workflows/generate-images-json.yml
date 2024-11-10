@@ -3,7 +3,7 @@ name: Generate images.json
 on:
   push:
     branches:
-      - main  # Trigger action on push to main branch
+      - env  # Trigger action on push to main branch
     paths:
       - 'oferta/dispositivos/gama/alta/images/**'  # Trigger action only when files in the 'images' folder change
 
