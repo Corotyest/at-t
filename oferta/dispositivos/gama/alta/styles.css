@@ -67,8 +67,8 @@ body, html {
 
 /* Estilo para los botones */
 #prev-btn, #next-btn {
-  position: absolute;
-  bottom: 5%;  /* Usamos porcentaje para asegurar que los botones estén a un 5% desde el fondo */
+  position: fixed;  /* Usamos fixed para que los botones estén siempre visibles */
+  bottom: 20px;
   background-color: black;
   color: white;
   padding: 15px 30px;
@@ -81,14 +81,23 @@ body, html {
 }
 
 #prev-btn {
-  left: 10%;
+  left: 20px;
   border-radius: 20px 0 0 20px;
 }
 
 #next-btn {
-  right: 10%;
+  right: 20px;
 }
 
 #prev-btn:hover, #next-btn:hover {
   background-color: #333;
+}
+
+/* Agregar bordes temporales para ver las áreas de los elementos */
+#prev-btn, #next-btn {
+  border: 2px solid red;  /* Borde temporal para ver si los botones están siendo dibujados */
+}
+
+.slider-container, .slider, .top-hud {
+  border: 2px solid blue;  /* Bordes azules temporales para depuración */
 }
