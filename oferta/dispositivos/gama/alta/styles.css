@@ -1,3 +1,4 @@
+/* Reset general */
 * {
   margin: 0;
   padding: 0;
@@ -10,13 +11,32 @@ body, html {
   font-family: Arial, sans-serif;
 }
 
+/* Estilo para el Top HUD */
+.top-hud {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  font-size: 18px;
+  z-index: 10;
+  line-height: 1.4;
+  font-weight: bold;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Ajustar el contenedor del slider para que las imágenes queden debajo del top HUD */
 .slider-container {
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 70px);  /* Restamos el alto del top-hud */
   width: 100vw;
   overflow: hidden;
   transition: background-color 0.5s ease-in-out;
   position: relative;
+  margin-top: 70px;  /* Asegura que haya espacio para el top HUD */
 }
 
 .slider {
@@ -29,11 +49,12 @@ body, html {
 .slider img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover;  /* Asegura que la imagen cubra toda el área */
   user-select: none;
   pointer-events: none;
 }
 
+/* Gradient */
 .gradient {
   position: absolute;
   top: 0;
@@ -44,7 +65,7 @@ body, html {
   transition: background-color 0.5s ease;
 }
 
-/* Estilo de los botones */
+/* Estilo para los botones */
 #prev-btn, #next-btn {
   position: absolute;
   bottom: 20px;
