@@ -16,7 +16,7 @@ body, html {
   width: 100vw;
   overflow: hidden;
   transition: background-color 0.5s ease-in-out;
-  position: relative; /* Para posicionar los botones dentro del contenedor */
+  position: relative; /* Para poder posicionar los botones */
 }
 
 .slider {
@@ -27,9 +27,9 @@ body, html {
 }
 
 .slider img {
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
+  width: 100%;  /* Aseguramos que la imagen ocupe todo el ancho */
+  height: 100%;  /* Aseguramos que la imagen ocupe toda la altura */
+  object-fit: cover;  /* Hace que la imagen cubra el área sin distorsionarse */
   user-select: none;
   pointer-events: none;
 }
