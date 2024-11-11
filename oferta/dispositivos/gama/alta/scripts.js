@@ -7,17 +7,18 @@ document.addEventListener('DOMContentLoaded', function() {
   let images = [];
   let totalImages = 0;
 
+  let touchStartX = 0;
+  let touchEndX = 0;
+
   fetch('images.json')
     .then(response => {
-      console.log(response);  // Verifica la respuesta antes de intentar convertirla a JSON
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
       return response.json();
     })
     .then(data => {
-      console.log(data);  // Verifica los datos cargados desde JSON
-      images = data.images;  // Accedemos a la propiedad 'images' del JSON
+      images = data.images;
       totalImages = images.length;
 
       if (totalImages === 0) {
@@ -25,16 +26,13 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
 
-      // Asegurémonos de que el slider esté vacío antes de agregar imágenes
       slider.innerHTML = '';
 
-      // Crear dinámicamente los elementos <img> para cada imagen
       images.forEach(image => {
-        console.log("Cargando imagen:", image);  // Verifica el nombre de cada imagen
         const imgElement = document.createElement('img');
         imgElement.src = `images/${image}`;
         imgElement.alt = image;
-        imgElement.style.display = 'none';
+        imgElement.style.display = 'none';  // Inicialmente oculta
         imgElement.onload = () => {
           console.log(`Imagen cargada correctamente: ${image}`);
         };
@@ -44,55 +42,75 @@ document.addEventListener('DOMContentLoaded', function() {
         slider.appendChild(imgElement);
       });
 
-      // Establecer el color de fondo inicial basado en la primera imagen
       if (slider.children.length > 0) {
+        showSlide(currentSlide);
         updateBackgroundColor(slider.children[0]);
-        showSlide(currentSlide);  // Mostrar la primera imagen cuando se carga la página
       }
 
-      // Modificar los textos de los botones para 'Atrás' y 'Siguiente'
-      document.getElementById('next-btn').textContent = 'Siguiente';
-      document.getElementById('prev-btn').textContent = 'Atrás';
-
-      // Añadir los event listeners para los botones 'Siguiente' y 'Atrás'
+      // Agregar event listeners a los botones
       document.getElementById('next-btn').addEventListener('click', nextSlide);
       document.getElementById('prev-btn').addEventListener('click', prevSlide);
-    })
-    .catch(error => console.log("Error fetching images:", error));
 
-  // Función para actualizar el color de fondo según la imagen
+      // Agregar los eventos de deslizamiento
+      sliderContainer.addEventListener('touchstart', handleTouchStart, false);
+      sliderContainer.addEventListener('touchmove', handleTouchMove, false);
+      sliderContainer.addEventListener('touchend', handleTouchEnd, false);
+    })
+    .catch(error => {
+      console.log("Error fetching images:", error);
+    });
+
+  // Función para manejar el inicio del toque
+  function handleTouchStart(event) {
+    touchStartX = event.touches[0].clientX;  // Almacenar la posición del toque inicial
+  }
+
+  // Función para manejar el movimiento del toque (aunque no es estrictamente necesario, pero es útil para detectar deslizamientos)
+  function handleTouchMove(event) {
+    touchEndX = event.touches[0].clientX;  // Actualizar la posición del toque mientras se mueve
+  }
+
+  // Función para manejar el final del toque
+  function handleTouchEnd() {
+    if (touchEndX < touchStartX) {
+      // Deslizó a la izquierda, ir al siguiente slide
+      nextSlide();
+    } else if (touchEndX > touchStartX) {
+      // Deslizó a la derecha, ir al slide anterior
+      prevSlide();
+    }
+  }
+
+  // Función para actualizar el color de fondo basado en la imagen
   function updateBackgroundColor(img) {
     const color = getDominantColor(img);
     gradient.style.backgroundColor = color;
   }
 
-  // Función para obtener el color dominante de la imagen (puedes usar una librería como Color Thief para obtener un color real)
+  // Función ficticia para obtener un color dominante de la imagen
   function getDominantColor(img) {
-    return 'rgba(0, 0, 0, 0.7)';  // Color de fondo ficticio (puedes sustituirlo por una librería de extracción de color)
+    return 'rgba(0, 0, 0, 0.7)';  // Placeholder, puede usar una librería real como Color Thief
   }
 
-  // Función para mostrar la diapositiva actual
+  // Función para mostrar la imagen actual
   function showSlide(index) {
-    // Ocultar todas las imágenes primero
     Array.from(slider.children).forEach(img => img.style.display = 'none');
-    
-    // Mostrar la imagen actual
     const currentImage = slider.children[index];
     if (currentImage) {
       currentImage.style.display = 'block';
-      updateBackgroundColor(currentImage);  // Actualizar el color de fondo de la imagen actual
+      updateBackgroundColor(currentImage);
     }
   }
 
-  // Función para ir a la siguiente diapositiva
+  // Función para ir a la siguiente imagen
   function nextSlide() {
-    currentSlide = (currentSlide + 1) % totalImages;  // Avanzar al siguiente slide (y volver al primero si estamos en el último)
+    currentSlide = (currentSlide + 1) % totalImages;
     showSlide(currentSlide);
   }
 
-  // Función para ir a la diapositiva anterior
+  // Función para ir a la imagen anterior
   function prevSlide() {
-    currentSlide = (currentSlide - 1 + totalImages) % totalImages;  // Retroceder al slide anterior (y volver al último si estamos en el primero)
+    currentSlide = (currentSlide - 1 + totalImages) % totalImages;
     showSlide(currentSlide);
   }
 });
