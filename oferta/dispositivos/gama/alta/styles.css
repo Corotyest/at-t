@@ -12,11 +12,11 @@ body, html {
 
 .slider-container {
   display: flex;
-  height: 100%;
+  height: 100vh;
   width: 100vw;
   overflow: hidden;
   transition: background-color 0.5s ease-in-out;
-  position: relative; /* Para poder posicionar los botones */
+  position: relative;
 }
 
 .slider {
@@ -27,9 +27,9 @@ body, html {
 }
 
 .slider img {
-  width: 100%;  /* Aseguramos que la imagen ocupe todo el ancho */
-  height: 100%;  /* Aseguramos que la imagen ocupe toda la altura */
-  object-fit: cover;  /* Hace que la imagen cubra el área sin distorsionarse */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   user-select: none;
   pointer-events: none;
 }
@@ -44,10 +44,10 @@ body, html {
   transition: background-color 0.5s ease;
 }
 
-/* Estilos de los botones */
+/* Estilo de los botones */
 #prev-btn, #next-btn {
   position: absolute;
-  bottom: 20px;  /* Alineados a 20px desde el fondo */
+  bottom: 20px;
   background-color: black;
   color: white;
   padding: 10px 20px;
@@ -55,20 +55,18 @@ body, html {
   font-size: 18px;
   cursor: pointer;
   z-index: 10;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  border-radius: 0 20px 20px 0;  /* Solo esquinas redondeadas (semi-redondas) */
+  border-radius: 0 20px 20px 0;
 }
 
 #prev-btn {
-  left: 20px;  /* Alineado a la izquierda */
-  border-radius: 20px 0 0 20px;  /* Esquinas redondeadas hacia la izquierda */
+  left: 20px;
+  border-radius: 20px 0 0 20px;
 }
 
 #next-btn {
-  right: 20px;  /* Alineado a la derecha */
+  right: 20px;
 }
 
 #prev-btn:hover, #next-btn:hover {
-  background-color: #333;  /* Color más oscuro al pasar el ratón */
-  transform: scale(1.1);  /* Efecto de agrandamiento al pasar el ratón */
+  background-color: #333;
 }
