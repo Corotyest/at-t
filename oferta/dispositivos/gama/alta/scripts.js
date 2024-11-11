@@ -8,8 +8,15 @@ document.addEventListener('DOMContentLoaded', function() {
   let totalImages = 0;
 
   fetch('images.json')
-    .then(response => response.json())
+    .then(response => {
+      console.log(response);  // Verifica la respuesta antes de intentar convertirla a JSON
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
     .then(data => {
+      console.log(data);  // Verifica los datos cargados desde JSON
       images = data.images;  // Accedemos a la propiedad 'images' del JSON
       totalImages = images.length;
 
