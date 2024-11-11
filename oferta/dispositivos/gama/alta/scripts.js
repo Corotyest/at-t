@@ -23,18 +23,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // Dynamically create <img> elements for each image
       images.forEach(image => {
+        console.log("Cargando imagen:", image);  // Verifica el nombre de cada imagen
         const imgElement = document.createElement('img');
-        imgElement.src = `images/${image}`;  // Path to the image in the images folder
+        imgElement.src = `images/${image}`;
         imgElement.alt = image;
-        imgElement.style.display = 'none';  // Initially hide all images
+        imgElement.style.display = 'none';
         imgElement.onload = () => {
-          console.log(`Imagen cargada: ${image}`); // Verificar que la imagen se cargue
+          console.log(`Imagen cargada correctamente: ${image}`);
         };
         imgElement.onerror = () => {
-          console.error(`Error al cargar la imagen: ${image}`); // Manejo de error en la carga
+          console.error(`Error al cargar la imagen: ${image}`);
         };
         slider.appendChild(imgElement);
       });
+
 
       // Set the initial background color based on the first image
       if (slider.children.length > 0) {
