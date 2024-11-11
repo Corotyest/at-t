@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Asegurémonos de que el slider esté vacío antes de agregar imágenes
       slider.innerHTML = '';
 
-      // Dynamically create <img> elements for each image
+      // Crear dinámicamente los elementos <img> para cada imagen
       images.forEach(image => {
         console.log("Cargando imagen:", image);  // Verifica el nombre de cada imagen
         const imgElement = document.createElement('img');
@@ -44,53 +44,55 @@ document.addEventListener('DOMContentLoaded', function() {
         slider.appendChild(imgElement);
       });
 
-
-      // Set the initial background color based on the first image
+      // Establecer el color de fondo inicial basado en la primera imagen
       if (slider.children.length > 0) {
         updateBackgroundColor(slider.children[0]);
-        showSlide(currentSlide);  // Show the first slide when the page loads
+        showSlide(currentSlide);  // Mostrar la primera imagen cuando se carga la página
       }
 
-      // Add event listeners for the next and previous buttons after the images are loaded
+      // Modificar los textos de los botones para 'Atrás' y 'Siguiente'
+      document.getElementById('next-btn').textContent = 'Siguiente';
+      document.getElementById('prev-btn').textContent = 'Atrás';
+
+      // Añadir los event listeners para los botones 'Siguiente' y 'Atrás'
       document.getElementById('next-btn').addEventListener('click', nextSlide);
       document.getElementById('prev-btn').addEventListener('click', prevSlide);
     })
     .catch(error => console.log("Error fetching images:", error));
 
-  // Function to update the background color based on the image
+  // Función para actualizar el color de fondo según la imagen
   function updateBackgroundColor(img) {
     const color = getDominantColor(img);
     gradient.style.backgroundColor = color;
   }
 
-  // Dummy function to get a dominant color from the image (can use libraries like Color Thief for more accuracy)
+  // Función para obtener el color dominante de la imagen (puedes usar una librería como Color Thief para obtener un color real)
   function getDominantColor(img) {
-    return 'rgba(0, 0, 0, 0.7)';  // Placeholder color (use a library like Color Thief for real implementation)
+    return 'rgba(0, 0, 0, 0.7)';  // Color de fondo ficticio (puedes sustituirlo por una librería de extracción de color)
   }
 
-  // Function to display the current slide
+  // Función para mostrar la diapositiva actual
   function showSlide(index) {
-    // Hide all images first
+    // Ocultar todas las imágenes primero
     Array.from(slider.children).forEach(img => img.style.display = 'none');
     
-    // Show the current image
+    // Mostrar la imagen actual
     const currentImage = slider.children[index];
     if (currentImage) {
       currentImage.style.display = 'block';
-      updateBackgroundColor(currentImage);  // Update background color for current image
+      updateBackgroundColor(currentImage);  // Actualizar el color de fondo de la imagen actual
     }
   }
 
-  // Function to go to the next slide
+  // Función para ir a la siguiente diapositiva
   function nextSlide() {
-    currentSlide = (currentSlide + 1) % totalImages;
+    currentSlide = (currentSlide + 1) % totalImages;  // Avanzar al siguiente slide (y volver al primero si estamos en el último)
     showSlide(currentSlide);
   }
 
-  // Function to go to the previous slide
+  // Función para ir a la diapositiva anterior
   function prevSlide() {
-    currentSlide = (currentSlide - 1 + totalImages) % totalImages;
+    currentSlide = (currentSlide - 1 + totalImages) % totalImages;  // Retroceder al slide anterior (y volver al último si estamos en el primero)
     showSlide(currentSlide);
   }
-
 });
