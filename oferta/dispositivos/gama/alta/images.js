@@ -78,11 +78,6 @@ export const data = [
     ]
   },
   {
-    "name": "list_files.sh",
-    "path": "./list_files.sh",
-    "type": "file"
-  },
-  {
     "name": "motorola",
     "path": "./motorola",
     "type": "directory",
