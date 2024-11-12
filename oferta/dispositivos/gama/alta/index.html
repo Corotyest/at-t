@@ -1,30 +1,33 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Minimalist Image Slider</title>
+  <title>Catálogo de Teléfonos</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- TopHUD: Título y fondo negro -->
+  <div id="topHud">
+    <h1 id="tophud">Menú de Marcas</h1>
+    <h2 id="subtitle">La Gran Plaza</h2> <!-- Subtítulo agregado -->
+  </div>
 
-<div class="top-hud">
-  AT&T La Gran Plaza<br>Planta Baja Local E-11 (junto a BBVA)
-</div>
+  <!-- Contenedor del menú -->
+  <div id="menu-container">
+    <!-- Los botones de marcas se generarán dinámicamente con JavaScript -->
+  </div>
 
-<div id="menu-container" class="menu-container">
-  <!-- Botones de marcas serán generados aquí -->
-</div>
+  <!-- Contenedor del slider de imágenes -->
+  <div id="slider-container">
+    <div id="slider">
+      <!-- Las imágenes se agregarán dinámicamente con JavaScript -->
+    </div>
+  </div>
 
-<div class="slider-container" id="slider-container">
-  <div class="slider" id="slider"></div>
-  <div class="gradient"></div>
-  <button id="prev-btn">Atrás</button>
-  <button id="next-btn">Siguiente</button>
-  <button id="back-btn">Menú Principal</button>
-</div>
+  <!-- Botón para regresar al menú -->
+  <button id="back-btn">🔙</button>
 
-<script src="scripts.js"></script>
-
+  <script src="scripts.js"></script>
 </body>
 </html>

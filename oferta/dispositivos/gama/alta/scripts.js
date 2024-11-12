@@ -1,25 +1,24 @@
 ﻿document.addEventListener('DOMContentLoaded', function() {
   const sliderContainer = document.getElementById('slider-container');
   const slider = document.getElementById('slider');
-  const gradient = document.querySelector('.gradient');
   const menuContainer = document.getElementById('menu-container');
   const backButton = document.getElementById('back-btn');
-
-  let currentSlide = 0;
+  const topHud = document.getElementById('tophud');
+  
   let images = [];
   let totalImages = 0;
 
   // Cargar las imágenes desde el archivo images.json
-  //fetch('./images.json')
-    //.then(response => response.json())
-    //.then(data => {
-      //images = data;
-//      totalImages = images.length;
-//      renderMenu();  // Llamar a la función para renderizar el menú
-//    })
-//    .catch(error => {
-//      console.error('Error fetching images:', error);
-//    });
+  fetch('./images.json')
+    .then(response => response.json())
+    .then(data => {
+      images = data;
+      totalImages = images.length;
+      renderMenu();  // Llamar a la función para renderizar el menú
+    })
+    .catch(error => {
+      console.error('Error fetching images:', error);
+    });
 
   // Renderizar el menú de marcas de teléfonos
   function renderMenu() {
@@ -31,16 +30,22 @@
       const button = document.createElement('button');
       button.classList.add('menu-button');
       button.textContent = imageData.name;
-      
-      // Evento para mostrar las imágenes al hacer clic en la marca
-      button.addEventListener('click', () => showImages(imageData));
-      
+
+      // Añadir el efecto de animación de explosión al hacer clic
+      button.addEventListener('click', () => {
+        button.classList.add('explode');
+        setTimeout(() => {
+          showImages(imageData);
+        }, 600); // Esperar que termine la animación
+      });
+
       // Añadir el botón al contenedor del menú
       menuContainer.appendChild(button);
     });
 
     // Mostrar el contenedor del menú
-    menuContainer.style.display = 'block';
+    menuContainer.style.display = 'flex';
+    sliderContainer.style.display = 'none';  // Asegurarse de ocultar el slider
   }
 
   // Mostrar las imágenes de una marca seleccionada
@@ -48,8 +53,10 @@
     // Limpiar el slider
     slider.innerHTML = '';
 
-    // Comentar esta sección para evitar el error de carga de imágenes
-    /*
+    // Cambiar el fondo de la página antes de mostrar las imágenes
+    document.body.style.background = 'linear-gradient(to right, #6a11cb, #2575fc)';
+
+    // Cargar las imágenes correspondientes a la marca
     imageData.children.forEach(image => {
       const imgElement = document.createElement('img');
       imgElement.src = image.path;
@@ -57,44 +64,19 @@
       imgElement.classList.add('slider-image');
       slider.appendChild(imgElement);
     });
-    */
 
     // Cambiar el título
-    const topHud = document.getElementById('tophud');
     topHud.textContent = imageData.name;
 
     // Ocultar el menú y mostrar el slider
     menuContainer.style.display = 'none';
-    sliderContainer.style.display = 'block';
+    sliderContainer.style.display = 'flex';
   }
 
   // Volver al menú principal
   backButton.addEventListener('click', () => {
     // Ocultar el slider y mostrar el menú
     sliderContainer.style.display = 'none';
-    menuContainer.style.display = 'block';
+    menuContainer.style.display = 'flex';
   });
-
-  // Funciones de navegación en el slider
-  function changeSlide(direction) {
-    currentSlide += direction;
-
-    if (currentSlide < 0) {
-      currentSlide = totalImages - 1;
-    } else if (currentSlide >= totalImages) {
-      currentSlide = 0;
-    }
-
-    const images = slider.querySelectorAll('.slider-image');
-    images.forEach((image, index) => {
-      image.style.display = index === currentSlide ? 'block' : 'none';
-    });
-  }
-
-  // Eventos para los botones de navegación del slider
-  document.getElementById('prev-btn').addEventListener('click', () => changeSlide(-1));
-  document.getElementById('next-btn').addEventListener('click', () => changeSlide(1));
-
-  // Mostrar la primera imagen
-  changeSlide(0);
 });
