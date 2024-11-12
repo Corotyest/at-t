@@ -1,4 +1,4 @@
-export const data = [
+[
   {
     "name": "iphone",
     "path": "./iphone",
@@ -100,14 +100,21 @@ export const data = [
     "type": "directory",
     "children": [
       {
-        "name": "reno12F-1C.webp",
-        "path": "./oppo/reno12F-1C.webp",
-        "type": "file"
-      },
-      {
-        "name": "reno5lite-2C.jpg",
-        "path": "./oppo/reno5lite-2C.jpg",
-        "type": "file"
+        "name": "Reno",
+        "path": "./oppo/Reno",
+        "type": "directory",
+        "children": [
+          {
+            "name": "12F-1C.webp",
+            "path": "./oppo/Reno/12F-1C.webp",
+            "type": "file"
+          },
+          {
+            "name": "5lite-2C.jpg",
+            "path": "./oppo/Reno/5lite-2C.jpg",
+            "type": "file"
+          }
+        ]
       }
     ]
   },
@@ -122,23 +129,23 @@ export const data = [
         "type": "directory",
         "children": [
           {
-            "name": "s23+-1C.webp",
-            "path": "./samsung/S23/s23+-1C.webp",
+            "name": "plus-1C.webp",
+            "path": "./samsung/S23/plus-1C.webp",
             "type": "file"
           },
           {
-            "name": "s23+-2C.webp",
-            "path": "./samsung/S23/s23+-2C.webp",
+            "name": "plus-2C.webp",
+            "path": "./samsung/S23/plus-2C.webp",
             "type": "file"
           },
           {
-            "name": "s23ultra-1C.webp",
-            "path": "./samsung/S23/s23ultra-1C.webp",
+            "name": "ultra-1C.webp",
+            "path": "./samsung/S23/ultra-1C.webp",
             "type": "file"
           },
           {
-            "name": "s23ultra-2C.webp",
-            "path": "./samsung/S23/s23ultra-2C.webp",
+            "name": "ultra-2C.webp",
+            "path": "./samsung/S23/ultra-2C.webp",
             "type": "file"
           }
         ]
@@ -149,33 +156,33 @@ export const data = [
         "type": "directory",
         "children": [
           {
-            "name": "s24+-1C.webp",
-            "path": "./samsung/S24/s24+-1C.webp",
+            "name": "normal-1C.webp",
+            "path": "./samsung/S24/normal-1C.webp",
             "type": "file"
           },
           {
-            "name": "s24+-2C.webp",
-            "path": "./samsung/S24/s24+-2C.webp",
+            "name": "normal-2C.webp",
+            "path": "./samsung/S24/normal-2C.webp",
             "type": "file"
           },
           {
-            "name": "s24-1C.webp",
-            "path": "./samsung/S24/s24-1C.webp",
+            "name": "plus-1C.webp",
+            "path": "./samsung/S24/plus-1C.webp",
             "type": "file"
           },
           {
-            "name": "s24-2C.webp",
-            "path": "./samsung/S24/s24-2C.webp",
+            "name": "plus-2C.webp",
+            "path": "./samsung/S24/plus-2C.webp",
             "type": "file"
           },
           {
-            "name": "s24ultra-1C.webp",
-            "path": "./samsung/S24/s24ultra-1C.webp",
+            "name": "ultra-1C.webp",
+            "path": "./samsung/S24/ultra-1C.webp",
             "type": "file"
           },
           {
-            "name": "s24ultra-2C.webp",
-            "path": "./samsung/S24/s24ultra-2C.webp",
+            "name": "ultra-2C.webp",
+            "path": "./samsung/S24/ultra-2C.webp",
             "type": "file"
           }
         ]
@@ -186,13 +193,13 @@ export const data = [
         "type": "directory",
         "children": [
           {
-            "name": "zflip-1C.webp",
-            "path": "./samsung/ZFLIP/zflip-1C.webp",
+            "name": "normal-1C.webp",
+            "path": "./samsung/ZFLIP/normal-1C.webp",
             "type": "file"
           },
           {
-            "name": "zflip-2C.webp",
-            "path": "./samsung/ZFLIP/zflip-2C.webp",
+            "name": "normal-2C.webp",
+            "path": "./samsung/ZFLIP/normal-2C.webp",
             "type": "file"
           }
         ]
@@ -205,14 +212,21 @@ export const data = [
     "type": "directory",
     "children": [
       {
-        "name": "14T-1C.webp",
-        "path": "./xiaomi/14T-1C.webp",
-        "type": "file"
-      },
-      {
-        "name": "14T-2C.webp",
-        "path": "./xiaomi/14T-2C.webp",
-        "type": "file"
+        "name": "14",
+        "path": "./xiaomi/14",
+        "type": "directory",
+        "children": [
+          {
+            "name": "T-1C.webp",
+            "path": "./xiaomi/14/T-1C.webp",
+            "type": "file"
+          },
+          {
+            "name": "T-2C.webp",
+            "path": "./xiaomi/14/T-2C.webp",
+            "type": "file"
+          }
+        ]
       }
     ]
   }

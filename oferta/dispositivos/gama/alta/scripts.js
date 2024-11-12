@@ -3,22 +3,18 @@
   const slider = document.getElementById('slider');
   const menuContainer = document.getElementById('menu-container');
   const backButton = document.getElementById('back-btn');
-  const topHud = document.getElementById('tophud');
-  
+  const topHud = document.getElementById('main-title');
+  const subtitle = document.getElementById('subtitle');
+
   let images = [];
-  let totalImages = 0;
 
   // Cargar las imágenes desde el archivo images.json
-  fetch('./images.json')
-    .then(response => response.json())
-    .then(data => {
-      images = data;
-      totalImages = images.length;
-      renderMenu();  // Llamar a la función para renderizar el menú
-    })
-    .catch(error => {
-      console.error('Error fetching images:', error);
-    });
+  import('./images.json').then((module) => {
+    images = module.data;
+    renderMenu();  // Llamar a la función para renderizar el menú
+  }).catch(error => {
+    console.error('Error fetching images:', error);
+  });
 
   // Renderizar el menú de marcas de teléfonos
   function renderMenu() {
@@ -56,17 +52,24 @@
     // Cambiar el fondo de la página antes de mostrar las imágenes
     document.body.style.background = 'linear-gradient(to right, #6a11cb, #2575fc)';
 
-    // Cargar las imágenes correspondientes a la marca
-    imageData.children.forEach(image => {
-      const imgElement = document.createElement('img');
-      imgElement.src = image.path;
-      imgElement.alt = image.name;
-      imgElement.classList.add('slider-image');
-      slider.appendChild(imgElement);
-    });
+    // Recorrer los modelos y sus imágenes
+    imageData.children.forEach(model => {
+      model.children.forEach(image => {
+        if (!image.name.toLowerCase().includes('normal')) {
+          let imageName = `${imageData.name} ${model.name} ${image.name}`;
+          imageName = imageName.replace(/-/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
 
-    // Cambiar el título
-    topHud.textContent = imageData.name;
+          const imgElement = document.createElement('img');
+          imgElement.src = image.path;
+          imgElement.alt = imageName;
+          imgElement.classList.add('slider-image');
+          slider.appendChild(imgElement);
+
+          // Cambiar el título
+          topHud.textContent = imageName;
+        }
+      });
+    });
 
     // Ocultar el menú y mostrar el slider
     menuContainer.style.display = 'none';
@@ -78,5 +81,7 @@
     // Ocultar el slider y mostrar el menú
     sliderContainer.style.display = 'none';
     menuContainer.style.display = 'flex';
+    topHud.textContent = 'Menú de Marcas';
+    subtitle.textContent = 'La Gran Plaza';
   });
 });
