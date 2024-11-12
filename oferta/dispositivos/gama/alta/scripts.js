@@ -1,98 +1,67 @@
+﻿// scripts.js
+import { data } from './imagesData.js';
+
 document.addEventListener('DOMContentLoaded', function() {
+  const menuContainer = document.getElementById('menu-container');
   const sliderContainer = document.getElementById('slider-container');
   const slider = document.getElementById('slider');
   const gradient = document.querySelector('.gradient');
-
+  const backBtn = document.getElementById('back-btn');
   let currentSlide = 0;
   let images = [];
   let totalImages = 0;
-
   let touchStartX = 0;
   let touchEndX = 0;
 
-  fetch('images.json')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      images = data.images;
-      totalImages = images.length;
+  function generateMenu(brands) {
+    brands.forEach(brand => {
+      const button = document.createElement('button');
+      button.className = 'menu-button';
+      button.textContent = brand.name;
+      button.addEventListener('click', () => showCatalog(brand));
+      menuContainer.appendChild(button);
+    });
+  }
 
-      if (totalImages === 0) {
-        console.error("No se encontraron imágenes en el archivo JSON.");
-        return;
-      }
+  function showCatalog(brand) {
+    menuContainer.style.display = 'none';
+    sliderContainer.style.display = 'flex';
+    backBtn.style.display = 'block';
 
-      slider.innerHTML = '';
+    images = [];
+    extractImages(brand, brand.name);
+    totalImages = images.length;
 
-      images.forEach(image => {
-        const imgElement = document.createElement('img');
-        imgElement.src = `images/${image}`;
-        imgElement.alt = image;
-        imgElement.style.display = 'none';  // Inicialmente oculta
-        imgElement.onload = () => {
-          console.log(`Imagen cargada correctamente: ${image}`);
-        };
-        imgElement.onerror = () => {
-          console.error(`Error al cargar la imagen: ${image}`);
-        };
-        slider.appendChild(imgElement);
-      });
+    if (totalImages === 0) {
+      console.error("No se encontraron imágenes para la marca seleccionada.");
+      return;
+    }
 
-      if (slider.children.length > 0) {
-        showSlide(currentSlide);
-        updateBackgroundColor(slider.children[0]);
-      }
-
-      // Agregar event listeners a los botones
-      document.getElementById('next-btn').addEventListener('click', nextSlide);
-      document.getElementById('prev-btn').addEventListener('click', prevSlide);
-
-      // Agregar los eventos de deslizamiento
-      sliderContainer.addEventListener('touchstart', handleTouchStart, false);
-      sliderContainer.addEventListener('touchmove', handleTouchMove, false);
-      sliderContainer.addEventListener('touchend', handleTouchEnd, false);
-    })
-    .catch(error => {
-      console.log("Error fetching images:", error);
+    slider.innerHTML = '';
+    images.forEach(image => {
+      const imgElement = document.createElement('img');
+      imgElement.src = `images/${brand.name}/${image}`;
+      imgElement.alt = image;
+      imgElement.style.display = 'none';
+      slider.appendChild(imgElement);
     });
 
-  // Función para manejar el inicio del toque
-  function handleTouchStart(event) {
-    touchStartX = event.touches[0].clientX;  // Almacenar la posición del toque inicial
-  }
-
-  // Función para manejar el movimiento del toque (aunque no es estrictamente necesario, pero es útil para detectar deslizamientos)
-  function handleTouchMove(event) {
-    touchEndX = event.touches[0].clientX;  // Actualizar la posición del toque mientras se mueve
-  }
-
-  // Función para manejar el final del toque
-  function handleTouchEnd() {
-    if (touchEndX < touchStartX) {
-      // Deslizó a la izquierda, ir al siguiente slide
-      nextSlide();
-    } else if (touchEndX > touchStartX) {
-      // Deslizó a la derecha, ir al slide anterior
-      prevSlide();
+    if (slider.children.length > 0) {
+      showSlide(currentSlide);
+      updateBackgroundColor(slider.children[0]);
     }
   }
 
-  // Función para actualizar el color de fondo basado en la imagen
-  function updateBackgroundColor(img) {
-    const color = getDominantColor(img);
-    gradient.style.backgroundColor = color;
+  function extractImages(directory, parentPath) {
+    directory.children.forEach(child => {
+      if (typeof child === 'string') {
+        images.push(`${parentPath}/${child}`);
+      } else if (child.type === 'directory') {
+        extractImages(child, `${parentPath}/${child.name}`);
+      }
+    });
   }
 
-  // Función ficticia para obtener un color dominante de la imagen
-  function getDominantColor(img) {
-    return 'rgba(0, 0, 0, 0.7)';  // Placeholder, puede usar una librería real como Color Thief
-  }
-
-  // Función para mostrar la imagen actual
   function showSlide(index) {
     Array.from(slider.children).forEach(img => img.style.display = 'none');
     const currentImage = slider.children[index];
@@ -102,15 +71,52 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Función para ir a la siguiente imagen
+  function updateBackgroundColor(img) {
+    const color = getDominantColor(img);
+    gradient.style.backgroundColor = color;
+  }
+
+  function getDominantColor(img) {
+    return 'rgba(0, 0, 0, 0.7)';
+  }
+
   function nextSlide() {
     currentSlide = (currentSlide + 1) % totalImages;
     showSlide(currentSlide);
   }
 
-  // Función para ir a la imagen anterior
   function prevSlide() {
     currentSlide = (currentSlide - 1 + totalImages) % totalImages;
     showSlide(currentSlide);
   }
+
+  function handleTouchStart(event) {
+    touchStartX = event.touches[0].clientX;
+  }
+
+  function handleTouchMove(event) {
+    touchEndX = event.touches[0].clientX;
+  }
+
+  function handleTouchEnd() {
+    if (touchEndX < touchStartX) {
+      nextSlide();
+    } else if (touchEndX > touchStartX) {
+      prevSlide();
+    }
+  }
+
+  document.getElementById('next-btn').addEventListener('click', nextSlide);
+  document.getElementById('prev-btn').addEventListener('click', prevSlide);
+  sliderContainer.addEventListener('touchstart', handleTouchStart, false);
+  sliderContainer.addEventListener('touchmove', handleTouchMove, false);
+  sliderContainer.addEventListener('touchend', handleTouchEnd, false);
+
+  backBtn.addEventListener('click', () => {
+    sliderContainer.style.display = 'none';
+    menuContainer.style.display = 'flex';
+    backBtn.style.display = 'none';
+  });
+
+  generateMenu(data);
 });
