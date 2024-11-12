@@ -1,4 +1,4 @@
-on:
+eon:
   push:
     branches:
-    - ENV
+    - env
