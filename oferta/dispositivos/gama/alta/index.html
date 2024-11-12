@@ -1,33 +1,26 @@
 ﻿<!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catálogo de Teléfonos</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Gallery</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- TopHUD: Título y fondo negro -->
-  <div id="topHud">
-    <h1 id="tophud">Menú de Marcas</h1>
-    <h2 id="subtitle">La Gran Plaza</h2> <!-- Subtítulo agregado -->
-  </div>
-
-  <!-- Contenedor del menú -->
-  <div id="menu-container">
-    <!-- Los botones de marcas se generarán dinámicamente con JavaScript -->
-  </div>
-
-  <!-- Contenedor del slider de imágenes -->
-  <div id="slider-container">
-    <div id="slider">
-      <!-- Las imágenes se agregarán dinámicamente con JavaScript -->
+    <header>
+        <button id="backButton" class="hidden">🔙</button>
+        <h1>Menu de Marcas</h1>
+        <h2 id="subtitle">La Gran Plaza</h2>
+    </header>
+    <div id="menu"></div>
+    <div id="slideshow" class="hidden">
+        <div id="imageContainer"></div>
+        <div id="navigation">
+            <button id="prevButton" class="navButton">Atras</button>
+            <button id="nextButton" class="navButton">Siguiente</button>
+        </div>
     </div>
-  </div>
-
-  <!-- Botón para regresar al menú -->
-  <button id="back-btn">🔙</button>
-
-  <script type="module" src="scripts.js"></script>
+    <script src="images.json"></script>
+    <script src="scripts.js"></script>
 </body>
 </html>
