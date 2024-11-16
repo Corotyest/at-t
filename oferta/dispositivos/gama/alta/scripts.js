@@ -1,4 +1,4 @@
-﻿import { data } from './images.json';
+﻿import { data } from './images.js';
 
 document.addEventListener("DOMContentLoaded", () => {
     const menu = document.getElementById("menu");
