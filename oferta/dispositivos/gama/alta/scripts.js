@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (item.type === "directory") {
                 const button = document.createElement("button");
                 button.textContent = item.name;
+                button.classList.add("menuButton"); // Añadimos una clase para el estilo
                 button.addEventListener("click", () => showImages(item));
                 menu.appendChild(button);
             }
@@ -34,6 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
         menu.classList.add("hidden");
         slideshow.classList.remove("hidden");
         backButton.classList.remove("hidden");
+        prevButton.classList.remove("hidden");
+        nextButton.classList.remove("hidden");
         subtitle.classList.add("hidden");
         document.querySelector("header h1").textContent = directory.name;
         currentImages = [];
@@ -78,5 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     backButton.addEventListener("click", showMenu);
 
+    // Inicializar con el menú visible
     showMenu();
 });
