@@ -1,5 +1,5 @@
 ﻿// Data import
-import { data } from './images.json';
+import { data } from './images.js';
 
 // Variables for current state
 let currentBrand = null;
