@@ -42,7 +42,7 @@ function initializeMenu() {
         data.forEach(item => {
             if (item.type === 'directory') {
                 const button = document.createElement('button');
-                button.textContent = item.name;
+                button.textContent = item.name.toUpperCase();
                 button.classList.add('menu-button');
                 button.addEventListener('click', () => {
                     loadGallery(item);
