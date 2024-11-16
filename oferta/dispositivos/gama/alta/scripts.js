@@ -13,20 +13,43 @@ const backButton = document.getElementById('back-button');
 const nextButton = document.getElementById('next-button');
 const prevButton = document.getElementById('prev-button');
 
+// Check if elements exist before adding event listeners
+if (backButton) {
+    backButton.addEventListener('click', showMenu);
+}
+if (nextButton) {
+    nextButton.addEventListener('click', () => {
+        if (currentIndex < currentImages.length - 1) {
+            currentIndex++;
+            updateGallery();
+        }
+    });
+}
+if (prevButton) {
+    prevButton.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateGallery();
+        }
+    });
+}
+
 // Initialize Menu
 function initializeMenu() {
     const menuList = document.getElementById('menu-list');
-    data.forEach(item => {
-        if (item.type === 'directory') {
-            const button = document.createElement('button');
-            button.textContent = item.name;
-            button.classList.add('menu-button');
-            button.addEventListener('click', () => {
-                loadGallery(item);
-            });
-            menuList.appendChild(button);
-        }
-    });
+    if (menuList) {
+        data.forEach(item => {
+            if (item.type === 'directory') {
+                const button = document.createElement('button');
+                button.textContent = item.name;
+                button.classList.add('menu-button');
+                button.addEventListener('click', () => {
+                    loadGallery(item);
+                });
+                menuList.appendChild(button);
+            }
+        });
+    }
 }
 
 // Load Gallery for a Brand
@@ -57,41 +80,28 @@ function updateGallery() {
 
     if (currentImages.length > 0) {
         const currentImage = currentImages[currentIndex];
-        imageElement.src = currentImage.path;
-        titleElement.textContent = `${currentBrand.name} ${currentImage.model}`;
+        if (imageElement && titleElement) {
+            imageElement.src = currentImage.path;
+            titleElement.textContent = `${currentBrand.name} ${currentImage.model}`;
+        }
     }
 }
 
 // Show Menu and Hide Gallery
 function showMenu() {
-    menu.style.display = 'block';
-    gallery.style.display = 'none';
+    if (menu && gallery) {
+        menu.style.display = 'block';
+        gallery.style.display = 'none';
+    }
 }
 
 // Show Gallery and Hide Menu
 function showGallery() {
-    menu.style.display = 'none';
-    gallery.style.display = 'block';
+    if (menu && gallery) {
+        menu.style.display = 'none';
+        gallery.style.display = 'block';
+    }
 }
-
-// Navigate to Previous Image
-prevButton.addEventListener('click', () => {
-    if (currentIndex > 0) {
-        currentIndex--;
-        updateGallery();
-    }
-});
-
-// Navigate to Next Image
-nextButton.addEventListener('click', () => {
-    if (currentIndex < currentImages.length - 1) {
-        currentIndex++;
-        updateGallery();
-    }
-});
-
-// Go Back to Menu
-backButton.addEventListener('click', showMenu);
 
 // Initialize the Menu on Page Load
 document.addEventListener('DOMContentLoaded', initializeMenu);
