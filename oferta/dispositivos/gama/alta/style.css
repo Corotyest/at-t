@@ -110,3 +110,21 @@
 .nav-button:active {
     transform: scale(0.95);
 }
+
+#back-button {
+    background: navy;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1.5em;
+    border-radius: 10px;
+    position: absolute;
+    left: 10px;
+    bottom: 10px; /* Para mantenerlo por debajo del tophud */
+    z-index: 500; /* Debajo del tophud pero encima del contenido principal */
+}
+
+#back-button:active {
+    transform: scale(0.95);
+}

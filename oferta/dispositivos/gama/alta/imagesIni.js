@@ -5,50 +5,28 @@ export const data = [
     "type": "directory",
     "children": [
       {
-        "name": "14",
-        "path": "./iphone/14",
-        "type": "directory",
-        "children": [
-          {
-            "name": "promax-1C.webp",
-            "path": "./iphone/14/promax-1C.webp",
-            "type": "file"
-          },
-          {
-            "name": "promax-2C-A.webp",
-            "path": "./iphone/14/promax-2C-A.webp",
-            "type": "file"
-          },
-          {
-            "name": "promax-2C.webp",
-            "path": "./iphone/14/promax-2C.webp",
-            "type": "file"
-          }
-        ]
-      },
-      {
         "name": "15",
         "path": "./iphone/15",
         "type": "directory",
         "children": [
           {
-            "name": "plus-1E.webp",
-            "path": "./iphone/15/plus-1E.webp",
+            "name": "plus-1E.png",
+            "path": "./iphone/15/plus-1E.png",
             "type": "file"
           },
           {
-            "name": "plus-2C.webp",
-            "path": "./iphone/15/plus-2C.webp",
+            "name": "plus-2C.png",
+            "path": "./iphone/15/plus-2C.png",
             "type": "file"
           },
           {
-            "name": "plus-3C.webp",
-            "path": "./iphone/15/plus-3C.webp",
+            "name": "plus-3C.png",
+            "path": "./iphone/15/plus-3C.png",
             "type": "file"
           },
           {
-            "name": "plus-CC.webp",
-            "path": "./iphone/15/plus-CC.webp",
+            "name": "plus-CC.png",
+            "path": "./iphone/15/plus-CC.png",
             "type": "file"
           }
         ]
@@ -59,18 +37,23 @@ export const data = [
         "type": "directory",
         "children": [
           {
-            "name": "promax-1C.webp",
-            "path": "./iphone/16/promax-1C.webp",
+            "name": "promax-1C.png",
+            "path": "./iphone/16/promax-1C.png",
             "type": "file"
           },
           {
-            "name": "promax-1E.webp",
-            "path": "./iphone/16/promax-1E.webp",
+            "name": "promax-1E.png",
+            "path": "./iphone/16/promax-1E.png",
             "type": "file"
           },
           {
-            "name": "promax-2C.webp",
-            "path": "./iphone/16/promax-2C.webp",
+            "name": "promax-2C-A.png",
+            "path": "./iphone/16/promax-2C-A.png",
+            "type": "file"
+          },
+          {
+            "name": "promax-2C.png",
+            "path": "./iphone/16/promax-2C.png",
             "type": "file"
           }
         ]
@@ -83,9 +66,16 @@ export const data = [
     "type": "directory",
     "children": [
       {
-        "name": "motoEdge50-2C.jpg",
-        "path": "./motorola/motoEdge50-2C.jpg",
-        "type": "file"
+        "name": "Edge",
+        "path": "./motorola/Edge",
+        "type": "directory",
+        "children": [
+          {
+            "name": "50-2C.png",
+            "path": "./motorola/Edge/50-2C.png",
+            "type": "file"
+          }
+        ]
       }
     ]
   },
@@ -100,13 +90,13 @@ export const data = [
         "type": "directory",
         "children": [
           {
-            "name": "12F-1C.webp",
-            "path": "./oppo/Reno/12F-1C.webp",
+            "name": "12F-1C.png",
+            "path": "./oppo/Reno/12F-1C.png",
             "type": "file"
           },
           {
-            "name": "5lite-2C.jpg",
-            "path": "./oppo/Reno/5lite-2C.jpg",
+            "name": "5lite-2C.png",
+            "path": "./oppo/Reno/5lite-2C.png",
             "type": "file"
           }
         ]
@@ -124,18 +114,18 @@ export const data = [
         "type": "directory",
         "children": [
           {
-            "name": "plus-1C.webp",
-            "path": "./samsung/S23/plus-1C.webp",
-            "type": "file"
-          },
-          {
-            "name": "plus-2C.webp",
-            "path": "./samsung/S23/plus-2C.webp",
+            "name": "ultra-1C.png",
+            "path": "./samsung/S23/ultra-1C.png",
             "type": "file"
           },
           {
             "name": "ultra-1C.webp",
             "path": "./samsung/S23/ultra-1C.webp",
+            "type": "file"
+          },
+          {
+            "name": "ultra-2C.png",
+            "path": "./samsung/S23/ultra-2C.png",
             "type": "file"
           },
           {
@@ -151,18 +141,8 @@ export const data = [
         "type": "directory",
         "children": [
           {
-            "name": "normal-1C.webp",
-            "path": "./samsung/S24/normal-1C.webp",
-            "type": "file"
-          },
-          {
-            "name": "normal-2C.webp",
-            "path": "./samsung/S24/normal-2C.webp",
-            "type": "file"
-          },
-          {
-            "name": "plus-1C.webp",
-            "path": "./samsung/S24/plus-1C.webp",
+            "name": "plus-2C.png",
+            "path": "./samsung/S24/plus-2C.png",
             "type": "file"
           },
           {
@@ -171,8 +151,18 @@ export const data = [
             "type": "file"
           },
           {
+            "name": "ultra-1C.png",
+            "path": "./samsung/S24/ultra-1C.png",
+            "type": "file"
+          },
+          {
             "name": "ultra-1C.webp",
             "path": "./samsung/S24/ultra-1C.webp",
+            "type": "file"
+          },
+          {
+            "name": "ultra-2C.png",
+            "path": "./samsung/S24/ultra-2C.png",
             "type": "file"
           },
           {
@@ -188,8 +178,18 @@ export const data = [
         "type": "directory",
         "children": [
           {
+            "name": "normal-1C.png",
+            "path": "./samsung/ZFLIP/normal-1C.png",
+            "type": "file"
+          },
+          {
             "name": "normal-1C.webp",
             "path": "./samsung/ZFLIP/normal-1C.webp",
+            "type": "file"
+          },
+          {
+            "name": "normal-2C.png",
+            "path": "./samsung/ZFLIP/normal-2C.png",
             "type": "file"
           },
           {

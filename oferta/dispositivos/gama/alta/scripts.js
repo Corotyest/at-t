@@ -19,20 +19,10 @@ if (backButton) {
     backButton.addEventListener('click', showMenu);
 }
 if (nextButton) {
-    nextButton.addEventListener('click', () => {
-        if (currentIndex < currentImages.length - 1) {
-            currentIndex++;
-            updateGallery();
-        }
-    });
+    nextButton.addEventListener('click', showNextImage);
 }
 if (prevButton) {
-    prevButton.addEventListener('click', () => {
-        if (currentIndex > 0) {
-            currentIndex--;
-            updateGallery();
-        }
-    });
+    prevButton.addEventListener('click', showPrevImage);
 }
 
 // Initialize Menu
@@ -84,7 +74,24 @@ function updateGallery() {
         if (imageElement && titleElement) {
             imageElement.src = currentImage.path;
             titleElement.textContent = `${currentBrand.name.toUpperCase()} ${currentImage.model.toUpperCase()}`;
+            updateBackgroundColor(currentImage.path);
         }
+    }
+}
+
+// Show Next Image
+function showNextImage() {
+    if (currentIndex < currentImages.length - 1) {
+        currentIndex++;
+        updateGallery();
+    }
+}
+
+// Show Previous Image
+function showPrevImage() {
+    if (currentIndex > 0) {
+        currentIndex--;
+        updateGallery();
     }
 }
 
@@ -108,3 +115,63 @@ function showGallery() {
 
 // Initialize the Menu on Page Load
 document.addEventListener('DOMContentLoaded', initializeMenu);
+
+// Add swipe event listeners
+let touchStartX = 0;
+
+gallery.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+});
+
+gallery.addEventListener('touchend', (e) => {
+    const touchEndX = e.changedTouches[0].clientX;
+    if (touchStartX - touchEndX > 50) {
+        showNextImage();
+    } else if (touchStartX - touchEndX < -50) {
+        showPrevImage();
+    }
+});
+
+// Function to update background color based on the current image
+function updateBackgroundColor(imagePath) {
+    const img = new Image();
+    img.src = imagePath;
+    img.crossOrigin = 'Anonymous';
+    img.onload = function () {
+        // Get the image data
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+
+        // Extract dominant color
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const pixels = imageData.data;
+
+        let colorCount = {};
+        for (let i = 0; i < pixels.length; i += 4) {
+            const r = pixels[i];
+            const g = pixels[i + 1];
+            const b = pixels[i + 2];
+            const color = `rgb(${r},${g},${b})`;
+            if (colorCount[color]) {
+                colorCount[color]++;
+            } else {
+                colorCount[color] = 1;
+            }
+        }
+
+        let dominantColor = '';
+        let maxCount = 0;
+        for (const color in colorCount) {
+            if (colorCount[color] > maxCount) {
+                dominantColor = color;
+                maxCount = colorCount[color];
+            }
+        }
+
+        // Set the background color
+        document.body.style.backgroundColor = dominantColor;
+    };
+}
