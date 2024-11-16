@@ -12,6 +12,7 @@ const gallery = document.getElementById('gallery');
 const backButton = document.getElementById('back-button');
 const nextButton = document.getElementById('next-button');
 const prevButton = document.getElementById('prev-button');
+const titleElement = document.getElementById('title');
 
 // Check if elements exist before adding event listeners
 if (backButton) {
@@ -82,7 +83,7 @@ function updateGallery() {
         const currentImage = currentImages[currentIndex];
         if (imageElement && titleElement) {
             imageElement.src = currentImage.path;
-            titleElement.textContent = `${currentBrand.name} ${currentImage.model}`;
+            titleElement.textContent = `${currentBrand.name.toUpperCase()} ${currentImage.model.toUpperCase()}`;
         }
     }
 }
@@ -90,8 +91,10 @@ function updateGallery() {
 // Show Menu and Hide Gallery
 function showMenu() {
     if (menu && gallery) {
-        menu.style.display = 'block';
+        menu.style.display = 'flex';
         gallery.style.display = 'none';
+        titleElement.textContent = "Menu De Marcas";
+        document.getElementById('subtitle').textContent = "La Gran Plaza";
     }
 }
 
