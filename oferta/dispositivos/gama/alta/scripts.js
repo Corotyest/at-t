@@ -1,5 +1,5 @@
 ﻿// Data import
-import { data } from './images.js';
+import { data } from './imagesIni.js';
 
 // Variables for current state
 let currentBrand = null;
